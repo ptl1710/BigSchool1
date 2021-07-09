@@ -106,3 +106,9 @@ C:\Users\ThanhLong\source\repos\BigSchool1\BigSchool1\obj\Debug\BigSchool1.cspro
 C:\Users\ThanhLong\source\repos\BigSchool1\BigSchool1\obj\Debug\BigSchool1.csproj.CopyComplete
 C:\Users\ThanhLong\source\repos\BigSchool1\BigSchool1\obj\Debug\BigSchool1.dll
 C:\Users\ThanhLong\source\repos\BigSchool1\BigSchool1\obj\Debug\BigSchool1.pdb
+C:\Users\ThanhLong\source\repos\BigSchool1\BigSchool1\bin\System.Net.Http.Formatting.dll
+C:\Users\ThanhLong\source\repos\BigSchool1\BigSchool1\bin\System.Web.Http.dll
+C:\Users\ThanhLong\source\repos\BigSchool1\BigSchool1\bin\System.Web.Http.WebHost.dll
+C:\Users\ThanhLong\source\repos\BigSchool1\BigSchool1\bin\System.Net.Http.Formatting.xml
+C:\Users\ThanhLong\source\repos\BigSchool1\BigSchool1\bin\System.Web.Http.xml
+C:\Users\ThanhLong\source\repos\BigSchool1\BigSchool1\bin\System.Web.Http.WebHost.xml
