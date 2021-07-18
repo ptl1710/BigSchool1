@@ -15,7 +15,7 @@ namespace BigSchool1.Controllers
         // GET: Course
         public ActionResult Create()
         {
-            BigSchool1Context context = new BigSchool1Context();
+            BigShool1Context context = new BigShool1Context();
             Course objCourse = new Course();
             objCourse.ListCategory = context.Category.ToList();
             
@@ -27,7 +27,7 @@ namespace BigSchool1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Course objCourse)
         {
-            BigSchool1Context context = new BigSchool1Context();
+            BigShool1Context context = new BigShool1Context();
 
             ModelState.Remove("LecturerId");
             if (!ModelState.IsValid)
@@ -47,7 +47,7 @@ namespace BigSchool1.Controllers
 
         public ActionResult Attending()
         {
-            BigSchool1Context context = new BigSchool1Context();
+            BigShool1Context context = new BigShool1Context();
             ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
                 .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
             var listAttendances = context.Attendance.Where(p => p.Attendee == currentUser.Id).ToList();
@@ -66,7 +66,7 @@ namespace BigSchool1.Controllers
         {
             ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
                 .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            BigSchool1Context context = new BigSchool1Context();
+            BigShool1Context context = new BigShool1Context();
             var courses = context.Course.Where(c => c.LecturerId == currentUser.Id && c.DateTime > DateTime.Now).ToList();
             foreach(Course i in courses)
             {
@@ -77,7 +77,7 @@ namespace BigSchool1.Controllers
 
         public ActionResult EditCourse(int id)
         {
-            BigSchool1Context context = new BigSchool1Context();
+            BigShool1Context context = new BigShool1Context();
 
             Course db = context.Course.SingleOrDefault(p => p.Id == id);
             db.ListCategory = context.Category.ToList();
@@ -88,7 +88,7 @@ namespace BigSchool1.Controllers
         [HttpPost]
         public ActionResult EditCourse(Course courses)
         {
-            BigSchool1Context context = new BigSchool1Context();
+            BigShool1Context context = new BigShool1Context();
             Course dbUpdate = context.Course.SingleOrDefault(p => p.Id == courses.Id);
             if (dbUpdate != null)
             {
@@ -102,7 +102,7 @@ namespace BigSchool1.Controllers
 
         public ActionResult Delete(int id)
         {
-            BigSchool1Context context = new BigSchool1Context();
+            BigShool1Context context = new BigShool1Context();
             Course db = context.Course.SingleOrDefault(p => p.Id == id);
             if (db == null)
             {
@@ -115,7 +115,7 @@ namespace BigSchool1.Controllers
         [HttpPost]
         public ActionResult Delete(Course c)
         {
-            BigSchool1Context context = new BigSchool1Context();
+            BigShool1Context context = new BigShool1Context();
             Course db = context.Course.SingleOrDefault(p => p.Id == c.Id);
             if (db != null)
             {
@@ -124,6 +124,33 @@ namespace BigSchool1.Controllers
             }
 
             return RedirectToAction("Mine");
+        }
+
+        public ActionResult Lecture()
+        {
+            ApplicationUser currentUser = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+            .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            BigShool1Context context = new BigShool1Context();
+           
+            var listFollwee = context.Following.Where(p => p.FollowerId == currentUser.Id).ToList();
+            
+            var listAttendances = context.Attendance.Where(p => p.Attendee == currentUser.Id).ToList();
+            var courses = new List<Course>();
+            foreach (var course in listAttendances)
+            {
+                foreach (var item in listFollwee)
+                {
+                    if (item.FolloweeId == course.Course.LecturerId)
+                    {
+                        Course objCourse = course.Course;
+                        objCourse.LecturerName = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()
+                        .FindById(objCourse.LecturerId).Name;
+                        courses.Add(objCourse);
+                    }
+                }
+
+            }
+            return View(courses);
         }
 
     }

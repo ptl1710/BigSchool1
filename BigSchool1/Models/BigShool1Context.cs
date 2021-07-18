@@ -5,16 +5,17 @@ using System.Linq;
 
 namespace BigSchool1.Models
 {
-    public partial class BigSchool1Context : DbContext
+    public partial class BigShool1Context : DbContext
     {
-        public BigSchool1Context()
-            : base("name=BigSchoolContext")
+        public BigShool1Context()
+            : base("name=BigShool1Context")
         {
         }
 
         public virtual DbSet<Attendance> Attendance { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Course> Course { get; set; }
+        public virtual DbSet<Following> Following { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
